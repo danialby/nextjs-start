@@ -1,15 +1,15 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from './layout.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
-
+import { motion } from 'framer-motion'
 const name = 'Your Name';
 export const siteTitle = 'Next.js Sample Website';
 
 export default function Layout({ children, home }) {
     return (
-        <div className={styles.container}>
+        <div className={"w-full h-screen  flex justify-center items-end"}>
+        <div className={'text-black w-full h-[95vh] rounded-t-[72px] shadow shadow-[0_0_60px_#38dc82] max-w-[calc(100%_-_96px)] mx-auto p-20 pt-8 bg-[#38dc82]'} >
             <Head>
                 <link rel="icon" href="/favicon.ico" />
                 <meta
@@ -25,7 +25,7 @@ export default function Layout({ children, home }) {
                 <meta name="og:title" content={siteTitle} />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
-            <header className={styles.header}>
+            <header className={'flex flex-col items-center'}>
                 {home ? (
                     <>
                         <Image
@@ -58,12 +58,24 @@ export default function Layout({ children, home }) {
                     </>
                 )}
             </header>
-            <main>{children}</main>
+            <main><motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                    type: "fadein",
+                    stiffness: 260,
+                    damping: 20,
+                }}
+            >
+                {children}
+            </motion.div></main>
             {!home && (
-                <div className={styles.backToHome}>
+                <div className={'my-10'}>
                     <Link href="/">← Back to home</Link>
                 </div>
             )}
+        </div>
         </div>
     );
 }
